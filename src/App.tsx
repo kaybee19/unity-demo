@@ -5,8 +5,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Editor />} />
-        <Route path="*" element={<Navigate to="/" />}/>
+        <Route path="/:id" element={<Editor />} />
+        <Route path="*" element={<Navigate to="/1" />}/>
       </Routes>
     </div>
   );

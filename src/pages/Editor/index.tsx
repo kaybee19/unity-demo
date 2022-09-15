@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled, { keyframes } from 'styled-components'
+import Modal from '../../components/Modal'
 import Scene from '../../components/Scene'
 import { SpriteEffect } from '../../components/Sprite/canvas'
 import useStore from '../../store'
@@ -44,6 +46,7 @@ const LogoWrapper = styled.div`
     top: 0;
     height: 15%;
     width: 100%;
+    font-family: Apple Chancery;
 
     img {
         max-width: 80%;
@@ -132,6 +135,7 @@ const ActionWrapper = styled.div`
     bottom: 0;
     
     p {
+        font-family: Apple Chancery;
         opacity: 0;
         animation: ${ opacityAnimation } 5s;
         animation-delay: 2.2s;
@@ -149,12 +153,15 @@ const ProductName = styled.div`
     animation: ${ opacityAnimation } 5s;
     animation-delay: 2.2s;
     animation-fill-mode: forwards;
+    font-family: Snell Roundhand2;
 `
 
 const ProductDesc = styled.div`
     opacity: 0;
     animation: ${ opacityAnimation } 5s;
     animation-fill-mode: forwards;
+
+    font-family: Apple Chancery;
 
     &.first {
         animation-delay: 3.2s;
@@ -173,6 +180,16 @@ export const Editor = () => {
     const { id } = useParams()
 
     const showInfo = useStore((state: any) => state.showInfo)
+
+    const [isOpen, setIsOpen] = useState(false)
+
+    const openModal = () => {
+        setIsOpen(true)
+    }
+
+    const closeModal = () => {
+        setIsOpen(false)
+    }
 
     return (
         <div className='overflow-hidden w-screen h-screen flex flex-col'>
@@ -196,19 +213,19 @@ export const Editor = () => {
                     <Scene modelId={id} />
                 </div>
 
-                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active1' : '' }`}></SrcButton>
+                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active1' : '' }`} onClick={ openModal }></SrcButton>
 
-                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active2' : '' }`}></SrcButton>
+                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active2' : '' }`} onClick={ openModal }></SrcButton>
 
-                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active3' : '' }`}></SrcButton>
+                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active3' : '' }`} onClick={ openModal }></SrcButton>
 
-                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active4' : '' }`}></SrcButton>
+                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active4' : '' }`} onClick={ openModal }></SrcButton>
 
                 <ProductDescWrapper className="mb-8 text-center">
-                    <ProductName className='text-3xl my-4'>Product Name</ProductName>
-                    <ProductDesc className='text-xl my-4 first'>What this product is told here</ProductDesc>
-                    <ProductDesc className='text-xl my-4 second'>What this product is told here</ProductDesc>
-                    <ProductDesc className='text-xl my-4 third'>What this product is told here</ProductDesc>
+                    <ProductName className='text-4xl my-4'>Product Name</ProductName>
+                    <ProductDesc className='text-2xl my-4 first'>What this product is told here</ProductDesc>
+                    <ProductDesc className='text-2xl my-4 second'>What this product is told here</ProductDesc>
+                    <ProductDesc className='text-2xl my-4 third'>What this product is told here</ProductDesc>
                 </ProductDescWrapper>
             </CanvasWrapper>
 
@@ -233,6 +250,8 @@ export const Editor = () => {
                     Share
                 </button>
             </ActionWrapper>
+
+            <Modal isOpen={ isOpen } onClose={ closeModal } />
         </div>
     )
 }

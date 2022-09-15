@@ -5,6 +5,7 @@
   "dependencies": {
     "@fontsource/inter": "^4.5.11",
     "@fontsource/manrope": "^4.5.10",
+    "@headlessui/react": "^1.7.2",
     "@react-spring/three": "^9.5.0",
     "@react-three/drei": "^9.17.1",
     "@react-three/fiber": "^8.1.0",

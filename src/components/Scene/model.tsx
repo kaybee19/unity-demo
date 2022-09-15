@@ -1,11 +1,16 @@
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { useLoader } from "@react-three/fiber";
-import { useEffect, useRef} from "react";
+import { useFrame, useLoader } from "@react-three/fiber";
+import { useEffect, useRef, useState} from "react";
 import { animated, useSpring } from "@react-spring/three";
 import { ang2Rad } from "../../helper/math";
+import useStore from "../../store";
 
 export const Model = ({scale, modelInfo}: any) => {
     const model = useLoader( GLTFLoader, modelInfo.src ) as any
+
+    const setShowInfo = useStore((state: any) => state.setShowInfo)
+    
+    const [ rotate, setRotate ] = useState(false)
 
     const meshRef = useRef(null) as any
 
@@ -42,10 +47,31 @@ export const Model = ({scale, modelInfo}: any) => {
             posApi.start({
                 position: [
                     0, 0, 0
-                ]
+                ],
+                config: { friction: 5, duration: 500 }
+            })
+
+            api.stop()
+            api.start({
+                rotation: [
+                    0, ang2Rad(1080), 0
+                ],
+                config: { friction: 5, duration: 500 }
             })
         }, 700)
+
+        setTimeout(() => {
+            setShowInfo(true)
+
+            setRotate(true)
+        }, 1200)
     }, [])
+
+    useFrame(() => {
+        if( rotate ) {
+            meshRef.current.rotateY( ang2Rad(1) )
+        }
+    })
 
     return (
         <animated.mesh 

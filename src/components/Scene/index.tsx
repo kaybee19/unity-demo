@@ -1,25 +1,10 @@
 import { Canvas, extend, useThree } from '@react-three/fiber'
 import { ambientLightProps, backgroundColor, cameraProps, modelScaleValue, orbitControlProps, spotLightProps, spotLightProps2 } from '../../constants/scene'
-import { Effects, OrbitControls } from '@react-three/drei'
+import { OrbitControls } from '@react-three/drei'
 import { Suspense } from 'react'
 import Model from './model'
 import { Loader } from './Loader'
 import { pendantsModelProps } from '../../constants'
-
-// import { SSAOPass } from "three-stdlib"
-
-// extend({ SSAOPass })
-
-
-// const TestEffect = () => {
-//     const { camera } = useThree() as any
-//     const scene = null as any
-//     return (
-//         <Effects multisamping={8} renderIndex={1} disableGamma={false} disableRenderPass={false} disableRender={false}>
-//             <SSAOPass args={[scene, camera, 100, 100]} kernelRadius={1.2} kernelSize={0} />
-//         </Effects>
-//     )
-// }
 
 export const Scene = ({ modelId }: any) => {
     const scaleValue = modelScaleValue
@@ -39,10 +24,8 @@ export const Scene = ({ modelId }: any) => {
             gl={{ antialias: true, alpha: true,}}
             camera={{ fov: cameraProps.fov, position: [ cameraProps.position.x, cameraProps.position.y, cameraProps.position.z ] }}
             shadows
-        > 
-
-
-            <color attach="background" args={[ backgroundColor ]} />
+        >
+            {/* <color attach="background" args={[ backgroundColor ]} /> */}
 
             <ambientLight 
                 color={ ambientLightProps.color }

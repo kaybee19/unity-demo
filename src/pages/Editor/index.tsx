@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled, { keyframes } from 'styled-components'
+import Loader from '../../components/Loader'
 import Modal from '../../components/Modal'
+import Preload from '../../components/Preload'
 import Scene from '../../components/Scene'
 import { SpriteEffect } from '../../components/Sprite/canvas'
 import useStore from '../../store'
@@ -18,7 +20,7 @@ const circleAnimation = keyframes`
 `
 
 const CanvasWrapper = styled.div`
-    height: calc(100% - 56px);
+    height: 100%;
 
     .sceneWrapper {
         width: 100%;
@@ -145,10 +147,13 @@ const ActionWrapper = styled.div`
 
 const ProductDescWrapper = styled.div`
     position: absolute;
-    bottom: 0;
+    bottom: 10%;
 `
 
 const ProductName = styled.div`
+    position: absolute;
+    top: 15%;
+
     opacity: 0;
     animation: ${ opacityAnimation } 5s;
     animation-delay: 2.2s;
@@ -162,6 +167,7 @@ const ProductDesc = styled.div`
     animation-fill-mode: forwards;
 
     font-family: Apple Chancery;
+    font-size: 1.7rem;
 
     &.first {
         animation-delay: 3.2s;
@@ -180,6 +186,7 @@ export const Editor = () => {
     const { id } = useParams()
 
     const showInfo = useStore((state: any) => state.showInfo)
+    const isLoadFinished = useStore((state: any) => state.isLoadFinished)
 
     const [isOpen, setIsOpen] = useState(false)
 
@@ -193,6 +200,8 @@ export const Editor = () => {
 
     return (
         <div className='overflow-hidden w-screen h-screen flex flex-col'>
+            <Preload />
+
             <LogoWrapper className='flex flex-col justify-center items-center'>
                 <img src={'assets/BrandLogo_Template.png'} alt='pic'></img>
 
@@ -206,28 +215,31 @@ export const Editor = () => {
                 <SpriteEffect canStart={ showInfo } />
             </CenterSpriteWrapper>
 
-            <CanvasWrapper 
-                className={`w-full h-full relative flex justify-center items-center`} 
-            >
-                <div className={`sceneWrapper`}>
-                    <Scene modelId={id} />
-                </div>
+            { isLoadFinished ? (
+                <CanvasWrapper 
+                    className={`w-full h-full relative flex justify-center items-center`} 
+                >
+                    <div className={`sceneWrapper`}>
+                        <Scene modelId={id} />
+                    </div>
 
-                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active1' : '' }`} onClick={ openModal }></SrcButton>
+                    <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active1' : '' }`} onClick={ openModal }></SrcButton>
 
-                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active2' : '' }`} onClick={ openModal }></SrcButton>
+                    <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active2' : '' }`} onClick={ openModal }></SrcButton>
 
-                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active3' : '' }`} onClick={ openModal }></SrcButton>
+                    <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active3' : '' }`} onClick={ openModal }></SrcButton>
 
-                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active4' : '' }`} onClick={ openModal }></SrcButton>
+                    <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active4' : '' }`} onClick={ openModal }></SrcButton>
 
-                <ProductDescWrapper className="mb-8 text-center">
                     <ProductName className='text-4xl my-4'>Product Name</ProductName>
-                    <ProductDesc className='text-2xl my-4 first'>What this product is told here</ProductDesc>
-                    <ProductDesc className='text-2xl my-4 second'>What this product is told here</ProductDesc>
-                    <ProductDesc className='text-2xl my-4 third'>What this product is told here</ProductDesc>
-                </ProductDescWrapper>
-            </CanvasWrapper>
+
+                    <ProductDescWrapper className="text-center">
+                        <ProductDesc className='text-2xl my-4 first'>What this product is told here</ProductDesc>
+                        <ProductDesc className='text-2xl my-4 second'>What this product is told here</ProductDesc>
+                        <ProductDesc className='text-2xl my-4 third'>What this product is told here</ProductDesc>
+                    </ProductDescWrapper>
+                </CanvasWrapper>
+            ) : <Loader /> }
 
             <ActionWrapper className='w-full flex justify-between items-center px-2'>
                 <button className='flex flex-col justify-center items-center font-bold'>

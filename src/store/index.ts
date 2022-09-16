@@ -6,6 +6,16 @@ const useStore = create((set) => ({
 	setShowInfo: (payload: any) => set(produce((state: any) => {
 		state.showInfo = payload
 	})),
+
+	spriteImageArray: {} as any,
+	setSpriteImageArray: (payload: any) => set(produce((state: any) => {
+		state.spriteImageArray = payload
+	})),
+
+	isLoadFinished: false,
+	setIsLoadFinished: (payload: any) => set(produce((state: any) => {
+		state.isLoadFinished = payload
+	})),
 }))
 
 export default useStore

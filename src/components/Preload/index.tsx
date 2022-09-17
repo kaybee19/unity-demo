@@ -12,17 +12,17 @@ export const Preload = () => {
     const setIsLoadFinished = useStore((state: any) => state.setIsLoadFinished)
 
     useEffect(() => {
-        if( first ) {
-            first = false
-            return
-        } 
+        // if( first ) {
+        //     first = false
+        //     return
+        // } 
 
         const promises = []
 
         for( let i = 1; i <= frameCount; i++ ) {
             promises.push(new Promise((resolve, reject) => {
                 const img = new Image() as any
-                img.src = `assets/sparkle_sprite/${ i }.png`
+                img.src = `/assets/sparkle_sprite/${ i }.png`
                 img.onload = () => {
                     imageArray[i - 1] = img
 

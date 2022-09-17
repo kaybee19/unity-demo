@@ -12,10 +12,10 @@ export const Preload = () => {
     const setIsLoadFinished = useStore((state: any) => state.setIsLoadFinished)
 
     useEffect(() => {
-        // if( first ) {
-        //     first = false
-        //     return
-        // } 
+        if( first ) {
+            first = false
+            return
+        }
 
         const promises = []
 

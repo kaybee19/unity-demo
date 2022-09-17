@@ -13,6 +13,13 @@ const opacityAnimation = keyframes`
     100% { opacity: 1; }
 `
 
+const opacityAnimation1 = keyframes`
+    0% { opacity: 0; }
+    25% { opacity: 1; }
+    75% { opacity: 1; }
+    100% { opacity: 0; }
+`
+
 const circleAnimation = keyframes`
     0% { margin-top: -5px; }
     50% { margin-top: 5px; }
@@ -147,7 +154,8 @@ const ActionWrapper = styled.div`
 
 const ProductDescWrapper = styled.div`
     position: absolute;
-    bottom: 6%;
+    transform: translate3d(0, 50%, 0);
+    bottom: 16%;
 `
 
 const ProductName = styled.div`
@@ -163,7 +171,7 @@ const ProductName = styled.div`
 
 const ProductDesc = styled.div`
     opacity: 0;
-    animation: ${ opacityAnimation } 5s;
+    animation: ${ opacityAnimation1 } 10s;
     animation-fill-mode: forwards;
 
     font-family: Apple Chancery;
@@ -174,11 +182,11 @@ const ProductDesc = styled.div`
     }
 
     &.second {
-        animation-delay: 4.2s;
+        animation-delay: 13.2s;
     }
 
     &.third {
-        animation-delay: 5.2s;
+        animation-delay: 23.2s;
     }
 `
 
@@ -227,8 +235,8 @@ export const Editor = () => {
 
                         <ProductDescWrapper className="text-center">
                             <ProductDesc className='text-2xl my-4 first'>What this product is told here</ProductDesc>
-                            <ProductDesc className='text-2xl my-4 second'>What this product is told here</ProductDesc>
-                            <ProductDesc className='text-2xl my-4 third'>What this product is told here</ProductDesc>
+                            <ProductDesc className='text-2xl my-4 second absolute top-0'>What this product is told here</ProductDesc>
+                            <ProductDesc className='text-2xl my-4 third absolute top-0'>What this product is told here</ProductDesc>
                         </ProductDescWrapper>
                     </CanvasWrapper>
 

@@ -56,7 +56,7 @@ const LogoWrapper = styled.div`
 
         opacity: 0;
         animation: ${ opacityAnimation } 5s;
-        animation-delay: 2.2s;
+        animation-delay: 0s;
         animation-fill-mode: forwards;
     }
 
@@ -65,7 +65,7 @@ const LogoWrapper = styled.div`
 
         opacity: 0;
         animation: ${ opacityAnimation } 5s;
-        animation-delay: 3.2s;
+        animation-delay: 1s;
         animation-fill-mode: forwards;
     }
 `
@@ -140,7 +140,7 @@ const ActionWrapper = styled.div`
         font-family: Apple Chancery;
         opacity: 0;
         animation: ${ opacityAnimation } 5s;
-        animation-delay: 2.2s;
+        animation-delay: 0s;
         animation-fill-mode: forwards;
     }
 `
@@ -156,7 +156,7 @@ const ProductName = styled.div`
 
     opacity: 0;
     animation: ${ opacityAnimation } 5s;
-    animation-delay: 2.2s;
+    animation-delay: 2s;
     animation-fill-mode: forwards;
     font-family: Snell Roundhand2;
 `
@@ -202,66 +202,72 @@ export const Editor = () => {
         <div className='overflow-hidden w-screen h-screen flex flex-col'>
             <Preload />
 
-            <LogoWrapper className='flex flex-col justify-center items-center'>
-                <img src={'assets/BrandLogo_Template.png'} alt='pic'></img>
-
-                <div className='flex justify-between items-center w-full description my-2'>
-                    <div className='text-sm'>Zoom and rotate</div>
-                    <div className='text-sm'>Doubletap to purchase</div>
-                </div>
-            </LogoWrapper>
-
-            <CenterSpriteWrapper className='absolute'>
-                <SpriteEffect canStart={ showInfo } />
-            </CenterSpriteWrapper>
-
             { isLoadFinished ? (
-                <CanvasWrapper 
-                    className={`w-full h-full relative flex justify-center items-center`} 
-                >
-                    <div className={`sceneWrapper`}>
-                        <Scene modelId={id} />
-                    </div>
+                <>
+                    <CenterSpriteWrapper className='absolute overflow-hidden w-full flex justify-center items-center'>
+                        <SpriteEffect canStart={ showInfo } />
+                    </CenterSpriteWrapper>
 
-                    <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active1' : '' }`} onClick={ openModal }></SrcButton>
+                    <CanvasWrapper 
+                        className={`w-full h-full relative flex justify-center items-center`} 
+                    >
+                        <div className={`sceneWrapper`}>
+                            <Scene modelId={id} />
+                        </div>
 
-                    <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active2' : '' }`} onClick={ openModal }></SrcButton>
+                        <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active1' : '' }`} onClick={ openModal }></SrcButton>
 
-                    <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active3' : '' }`} onClick={ openModal }></SrcButton>
+                        <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active2' : '' }`} onClick={ openModal }></SrcButton>
 
-                    <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active4' : '' }`} onClick={ openModal }></SrcButton>
+                        <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active3' : '' }`} onClick={ openModal }></SrcButton>
 
-                    <ProductName className='text-4xl my-4'>Product Name</ProductName>
+                        <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active4' : '' }`} onClick={ openModal }></SrcButton>
 
-                    <ProductDescWrapper className="text-center">
-                        <ProductDesc className='text-2xl my-4 first'>What this product is told here</ProductDesc>
-                        <ProductDesc className='text-2xl my-4 second'>What this product is told here</ProductDesc>
-                        <ProductDesc className='text-2xl my-4 third'>What this product is told here</ProductDesc>
-                    </ProductDescWrapper>
-                </CanvasWrapper>
+                        <ProductName className='text-4xl my-4'>Product Name</ProductName>
+
+                        <ProductDescWrapper className="text-center">
+                            <ProductDesc className='text-2xl my-4 first'>What this product is told here</ProductDesc>
+                            <ProductDesc className='text-2xl my-4 second'>What this product is told here</ProductDesc>
+                            <ProductDesc className='text-2xl my-4 third'>What this product is told here</ProductDesc>
+                        </ProductDescWrapper>
+                    </CanvasWrapper>
+
+                    { showInfo ? (
+                        <>
+                            <LogoWrapper className='flex flex-col justify-center items-center'>
+                                <img src={'assets/BrandLogo_Template.png'} alt='pic'></img>
+
+                                <div className='flex justify-between items-center w-full description my-2'>
+                                    <div className='text-sm'>Zoom and rotate</div>
+                                    <div className='text-sm'>Doubletap to purchase</div>
+                                </div>
+                            </LogoWrapper>
+
+                            <ActionWrapper className='w-full flex justify-between items-center px-2'>
+                                <button className='flex flex-col justify-center items-center font-bold'>
+                                    <img src='assets/ChatIcon.png' width={32} height={32} alt='pic'></img>
+                                    2968
+                                </button>
+
+                                <button className='flex flex-col justify-center items-center font-bold'>
+                                    <img src='assets/Like_HeartIcon.png' width={32} height={32} alt='pic'></img>
+                                    1.2M
+                                </button>
+
+                                <p className='text-sm text-center'>
+                                    Share with friends or <br/>
+                                    Invite them to a private room
+                                </p>
+
+                                <button className='flex flex-col justify-center items-center font-bold'>
+                                    <img src='assets/ShareIcon.png' width={32} height={32} alt='pic'></img>
+                                    Share
+                                </button>
+                            </ActionWrapper>
+                        </>
+                    ) : null }
+                </>
             ) : <Loader /> }
-
-            <ActionWrapper className='w-full flex justify-between items-center px-2'>
-                <button className='flex flex-col justify-center items-center font-bold'>
-                    <img src='assets/ChatIcon.png' width={32} height={32} alt='pic'></img>
-                    2968
-                </button>
-
-                <button className='flex flex-col justify-center items-center font-bold'>
-                    <img src='assets/Like_HeartIcon.png' width={32} height={32} alt='pic'></img>
-                    1.2M
-                </button>
-
-                <p className='text-sm text-center'>
-                    Share with friends or <br/>
-                    Invite them to a private room
-                </p>
-
-                <button className='flex flex-col justify-center items-center font-bold'>
-                    <img src='assets/ShareIcon.png' width={32} height={32} alt='pic'></img>
-                    Share
-                </button>
-            </ActionWrapper>
 
             <Modal isOpen={ isOpen } onClose={ closeModal } />
         </div>

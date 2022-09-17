@@ -20,7 +20,7 @@ const circleAnimation = keyframes`
 `
 
 const CanvasWrapper = styled.div`
-    height: 100%;
+    height: calc(100% - 56px);
 
     .sceneWrapper {
         width: 100%;
@@ -147,12 +147,12 @@ const ActionWrapper = styled.div`
 
 const ProductDescWrapper = styled.div`
     position: absolute;
-    bottom: 10%;
+    bottom: 6%;
 `
 
 const ProductName = styled.div`
     position: absolute;
-    top: 15%;
+    top: 14%;
 
     opacity: 0;
     animation: ${ opacityAnimation } 5s;

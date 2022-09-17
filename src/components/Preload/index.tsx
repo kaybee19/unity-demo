@@ -15,7 +15,7 @@ export const Preload = () => {
         if( first ) {
             first = false
             return
-        }
+        } 
 
         const promises = []
 

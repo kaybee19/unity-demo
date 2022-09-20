@@ -140,7 +140,7 @@ const SrcButton = styled.div`
 `
 
 const ActionWrapper = styled.div`
-    position: absolute;
+    // position: absolute;
     bottom: 0;
     
     p {
@@ -171,7 +171,7 @@ const ProductName = styled.div`
 
 const ProductDesc = styled.div`
     opacity: 0;
-    animation: ${ opacityAnimation1 } 10s;
+    animation: ${ opacityAnimation1 } 5s;
     animation-fill-mode: forwards;
 
     font-family: Apple Chancery;
@@ -182,11 +182,11 @@ const ProductDesc = styled.div`
     }
 
     &.second {
-        animation-delay: 13.2s;
+        animation-delay: 8.2s;
     }
 
     &.third {
-        animation-delay: 23.2s;
+        animation-delay: 13.2s;
     }
 `
 
@@ -243,7 +243,7 @@ export const Editor = () => {
                     { showInfo ? (
                         <>
                             <LogoWrapper className='flex flex-col justify-center items-center'>
-                                <img src={'assets/BrandLogo_Template.png'} alt='pic'></img>
+                                <img src={'/assets/BrandLogo_Template.png'} alt='pic'></img>
 
                                 <div className='flex justify-between items-center w-full description my-2'>
                                     <div className='text-sm'>Zoom and rotate</div>
@@ -253,12 +253,12 @@ export const Editor = () => {
 
                             <ActionWrapper className='w-full flex justify-between items-center px-2'>
                                 <button className='flex flex-col justify-center items-center font-bold'>
-                                    <img src='assets/ChatIcon.png' width={32} height={32} alt='pic'></img>
+                                    <img src='/assets/ChatIcon.png' width={32} height={32} alt='pic'></img>
                                     2968
                                 </button>
 
                                 <button className='flex flex-col justify-center items-center font-bold'>
-                                    <img src='assets/Like_HeartIcon.png' width={32} height={32} alt='pic'></img>
+                                    <img src='/assets/Like_HeartIcon.png' width={32} height={32} alt='pic'></img>
                                     1.2M
                                 </button>
 
@@ -268,7 +268,7 @@ export const Editor = () => {
                                 </p>
 
                                 <button className='flex flex-col justify-center items-center font-bold'>
-                                    <img src='assets/ShareIcon.png' width={32} height={32} alt='pic'></img>
+                                    <img src='/assets/ShareIcon.png' width={32} height={32} alt='pic'></img>
                                     Share
                                 </button>
                             </ActionWrapper>

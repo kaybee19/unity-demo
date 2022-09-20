@@ -207,7 +207,7 @@ export const Editor = () => {
     }
 
     return (
-        <div className='overflow-hidden w-screen flex flex-col'>
+        <div className='overflow-hidden w-screen h-screen flex flex-col' style={{ minHeight: '-webkit-fill-available' }}>
             <Preload />
 
             { isLoadFinished ? (

@@ -263,3 +263,10 @@ export const chainModelProps = {
     src: './models/charm_pinchlock_mobile_gold.glb',
     position: [0, 0.05, 0]
 }
+
+export const soundArray = {
+    background: new Audio('/assets/sounds/Background_Template.mp3'),
+    chime: new Audio('/assets/sounds/ProductExperience_Chime.mp3'),
+    woosh: new Audio('/assets/sounds/ProductExperience_Woosh.mp3'),
+    voice: new Audio('/assets/sounds/VoiceOver_Template.mp3'),
+}

@@ -9,6 +9,10 @@ export const Model = ({scale, modelInfo}: any) => {
     const model = useLoader( GLTFLoader, modelInfo.src ) as any
 
     const setShowInfo = useStore((state: any) => state.setShowInfo)
+
+    const setIsModalLoaded = useStore((state: any) => state.setIsModalLoaded)
+
+    const canStartAnim = useStore((state: any) => state.canStartAnim)
     
     const [ rotate, setRotate ] = useState(false)
 
@@ -36,7 +40,7 @@ export const Model = ({scale, modelInfo}: any) => {
         document.body.style.cursor = ''
     }
 
-    useEffect(() => {
+    const startAnimation = () => {
         api.start({
             rotation: [
                 0, ang2Rad(1080), 0
@@ -65,7 +69,16 @@ export const Model = ({scale, modelInfo}: any) => {
 
             setRotate(true)
         }, 1200)
+    }
+
+    useEffect(() => {
+        setIsModalLoaded(true)
     }, [])
+
+    useEffect(() => {
+        if( canStartAnim )
+            startAnimation()
+    }, [ canStartAnim ])
 
     useFrame(() => {
         if( rotate ) {

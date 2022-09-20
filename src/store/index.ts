@@ -16,6 +16,16 @@ const useStore = create((set) => ({
 	setIsLoadFinished: (payload: any) => set(produce((state: any) => {
 		state.isLoadFinished = payload
 	})),
+
+	isModalLoaded: false,
+	setIsModalLoaded: (payload: any) => set(produce((state: any) => {
+		state.isModalLoaded = payload
+	})),
+
+	canStartAnim: false,
+	setCanStartAnim: (payload: any) => set(produce((state: any) => {
+		state.canStartAnim = payload
+	})),
 }))
 
 export default useStore

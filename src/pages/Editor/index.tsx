@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled, { keyframes } from 'styled-components'
 import Loader from '../../components/Loader'
@@ -6,6 +6,7 @@ import Modal from '../../components/Modal'
 import Preload from '../../components/Preload'
 import Scene from '../../components/Scene'
 import { SpriteEffect } from '../../components/Sprite/canvas'
+import { soundArray } from '../../constants'
 import useStore from '../../store'
 
 const opacityAnimation = keyframes`
@@ -195,16 +196,48 @@ export const Editor = () => {
 
     const showInfo = useStore((state: any) => state.showInfo)
     const isLoadFinished = useStore((state: any) => state.isLoadFinished)
+    const isModalLoaded = useStore((state: any) => state.isModalLoaded)
+    const canStartAnim = useStore((state: any) => state.canStartAnim)
+    const setCanStartAnim = useStore((state: any) => state.setCanStartAnim)
 
     const [isOpen, setIsOpen] = useState(false)
 
     const openModal = () => {
         setIsOpen(true)
+
+        soundArray['chime'].currentTime = 0
+        soundArray['chime'].play()
     }
 
     const closeModal = () => {
         setIsOpen(false)
     }
+
+    useEffect(() => {
+        if( showInfo ) {
+            soundArray['chime'].currentTime = 0
+            soundArray['chime'].play()
+
+            setTimeout(() => {
+                soundArray['voice'].play()
+            }, 1500)
+        }
+    }, [ showInfo ])
+    
+    useEffect(() => {
+        if( canStartAnim ) {
+            soundArray['background'].play()
+            soundArray['background'].onended = () => {
+                soundArray['background'].currentTime = 0
+                soundArray['background'].play()
+            }
+
+            setTimeout(() => {
+                soundArray['woosh'].currentTime = 1
+                soundArray['woosh'].play()
+            }, 500)
+        }
+    }, [ canStartAnim ])
 
     return (
         <div className='overflow-hidden w-screen h-screen flex flex-col' style={{ minHeight: '-webkit-fill-available' }}>
@@ -219,25 +252,29 @@ export const Editor = () => {
                     <CanvasWrapper 
                         className={`w-full h-full relative flex justify-center items-center`} 
                     >
-                        <div className={`sceneWrapper`}>
+                        <div className={`sceneWrapper ${ !canStartAnim ? 'opacity-0' : ''}`}>
                             <Scene modelId={id} />
                         </div>
 
-                        <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active1' : '' }`} onClick={ openModal }></SrcButton>
+                        { canStartAnim ? (
+                            <>
+                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active1' : '' }`} onClick={ openModal }></SrcButton>
 
-                        <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active2' : '' }`} onClick={ openModal }></SrcButton>
+                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active2' : '' }`} onClick={ openModal }></SrcButton>
 
-                        <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active3' : '' }`} onClick={ openModal }></SrcButton>
+                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active3' : '' }`} onClick={ openModal }></SrcButton>
 
-                        <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active4' : '' }`} onClick={ openModal }></SrcButton>
+                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active4' : '' }`} onClick={ openModal }></SrcButton>
 
-                        <ProductName className='text-4xl my-4'>Product Name</ProductName>
+                                <ProductName className='text-4xl my-4'>Product Name</ProductName>
 
-                        <ProductDescWrapper className="text-center">
-                            <ProductDesc className='text-2xl my-4 first'>What this product is told here</ProductDesc>
-                            <ProductDesc className='text-2xl my-4 second absolute top-0'>What this product is told here</ProductDesc>
-                            <ProductDesc className='text-2xl my-4 third absolute top-0'>What this product is told here</ProductDesc>
-                        </ProductDescWrapper>
+                                <ProductDescWrapper className="text-center">
+                                    <ProductDesc className='text-2xl my-4 first'>What this product is told here</ProductDesc>
+                                    <ProductDesc className='text-2xl my-4 second absolute top-0'>What this product is told here</ProductDesc>
+                                    <ProductDesc className='text-2xl my-4 third absolute top-0'>What this product is told here</ProductDesc>
+                                </ProductDescWrapper>
+                            </>
+                        ) : null }
                     </CanvasWrapper>
 
                     { showInfo ? (
@@ -276,6 +313,12 @@ export const Editor = () => {
                     ) : null }
                 </>
             ) : <Loader /> }
+
+            { (isLoadFinished && isModalLoaded && !canStartAnim) ? (
+                <div className='absolute t-0 l-0 w-full h-full flex justify-center items-center text-3xl font-Apple-Chancery' onClick={() => setCanStartAnim(true)}>
+                    Click to Start
+                </div>
+            ): null }
 
             <Modal isOpen={ isOpen } onClose={ closeModal } />
         </div>

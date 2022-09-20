@@ -2,7 +2,6 @@ import { useEffect } from "react"
 import useStore from "../../store"
 
 export const Preload = () => {
-    let first = true
     const frameCount = 68
 
     let imageArray = [] as any
@@ -12,11 +11,6 @@ export const Preload = () => {
     const setIsLoadFinished = useStore((state: any) => state.setIsLoadFinished)
 
     useEffect(() => {
-        // if( first ) {
-        //     first = false
-        //     return
-        // }
-
         const promises = []
 
         for( let i = 1; i <= frameCount; i++ ) {

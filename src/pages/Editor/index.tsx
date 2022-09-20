@@ -240,7 +240,7 @@ export const Editor = () => {
     }, [ canStartAnim ])
 
     return (
-        <div className='overflow-hidden w-screen h-screen flex flex-col' style={{ minHeight: '-webkit-fill-available' }}>
+        <div className='overflow-hidden w-screen flex flex-col' style={{ minHeight: '-webkit-fill-available', height: window.innerHeight }}>
             <Preload />
 
             { isLoadFinished ? (

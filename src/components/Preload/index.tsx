@@ -16,7 +16,7 @@ export const Preload = () => {
         for( let i = 1; i <= frameCount; i++ ) {
             promises.push(new Promise((resolve, reject) => {
                 const img = new Image() as any
-                img.src = `/assets/sparkle_sprite/${ i }.png`
+                img.src = `/assets/sparkle_sprite/${ i }-min.png`
                 img.onload = () => {
                     imageArray[i - 1] = img
 

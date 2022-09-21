@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import { soundArray } from "../../constants"
 import useStore from "../../store"
 
 export const Preload = () => {
@@ -18,12 +19,22 @@ export const Preload = () => {
                 const img = new Image() as any
                 img.src = `/assets/sparkle_sprite/${ i }-min.png`
                 img.onload = () => {
-                    imageArray[i - 1] = img
+                    if( !imageArray[i - 1] )
+                        imageArray[i - 1] = img
 
                     resolve(true)
                 }
             }))
         }
+
+        Object.keys(soundArray).forEach((key: any) => {
+            promises.push(new Promise((resolve, reject) => {
+                soundArray[key as keyof typeof soundArray].oncanplaythrough = () => {
+                    resolve(true)
+                }
+            }))
+        })
+
 
         Promise.all(promises).then((res) => {
             const temp = { ...spriteImageArray }

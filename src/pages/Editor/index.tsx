@@ -8,6 +8,7 @@ import Scene from '../../components/Scene'
 import { SpriteEffect } from '../../components/Sprite/canvas'
 import { soundArray } from '../../constants'
 import useStore from '../../store'
+import { useCheckout } from '../../context/CheckoutContext'
 
 const opacityAnimation = keyframes`
     0% { opacity: 0; }
@@ -200,9 +201,21 @@ export const Editor = () => {
     const canStartAnim = useStore((state: any) => state.canStartAnim)
     const setCanStartAnim = useStore((state: any) => state.setCanStartAnim)
 
+    const { productDetails, setProductDetails } = useCheckout();
     const [isOpen, setIsOpen] = useState(false)
 
-    const openModal = () => {
+    const handleCheckout = () => {
+
+        // Testing using false product data
+        // Setting dummy data into ProductDetails array
+        setProductDetails([{
+            productName: 'anchor jewlery',
+            productColor: 'black',
+            productCost: 75.25,
+            productImage: 'sampleImg.png',
+            productQuantity: 1,
+            productDescription: 'Lorem Ipsum is simply dummy text of the printing and typesetting.',
+        }]);
         setIsOpen(true)
 
         soundArray['chime'].currentTime = 0
@@ -258,13 +271,13 @@ export const Editor = () => {
 
                         { canStartAnim ? (
                             <>
-                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active1' : '' }`} onClick={ openModal }></SrcButton>
+                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active1' : '' }`} onClick={ handleCheckout }></SrcButton>
 
-                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active2' : '' }`} onClick={ openModal }></SrcButton>
+                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active2' : '' }`} onClick={ handleCheckout }></SrcButton>
 
-                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active3' : '' }`} onClick={ openModal }></SrcButton>
+                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active3' : '' }`} onClick={ handleCheckout }></SrcButton>
 
-                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active4' : '' }`} onClick={ openModal }></SrcButton>
+                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active4' : '' }`} onClick={ handleCheckout }></SrcButton>
 
                                 <ProductName className='text-4xl my-4'>Product Name</ProductName>
 

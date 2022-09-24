@@ -9,6 +9,7 @@ import { SpriteEffect } from '../../components/Sprite/canvas'
 import { soundArray } from '../../constants'
 import useStore from '../../store'
 import { useCheckout } from '../../context/CheckoutContext'
+import { useDoubleTap } from 'use-double-tap';
 
 const opacityAnimation = keyframes`
     0% { opacity: 0; }
@@ -204,6 +205,11 @@ export const Editor = () => {
     const { productDetails, setProductDetails } = useCheckout();
     const [isOpen, setIsOpen] = useState(false)
 
+    const handleTouch = useDoubleTap(() => {
+        handleCheckout();
+        console.log('Double tapped');
+    });
+
     const handleCheckout = () => {
 
         // Testing using false product data
@@ -265,19 +271,19 @@ export const Editor = () => {
                     <CanvasWrapper 
                         className={`w-full h-full relative flex justify-center items-center`} 
                     >
-                        <div className={`sceneWrapper ${ !canStartAnim ? 'opacity-0' : ''}`}>
+                        <div {...handleTouch} className={`sceneWrapper ${ !canStartAnim ? 'opacity-0' : ''}`}>
                             <Scene modelId={id} />
                         </div>
 
                         { canStartAnim ? (
                             <>
-                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active1' : '' }`} onClick={ handleCheckout }></SrcButton>
+                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active1' : '' }`}></SrcButton>
 
-                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active2' : '' }`} onClick={ handleCheckout }></SrcButton>
+                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active2' : '' }`}></SrcButton>
 
-                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active3' : '' }`} onClick={ handleCheckout }></SrcButton>
+                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active3' : '' }`}></SrcButton>
 
-                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active4' : '' }`} onClick={ handleCheckout }></SrcButton>
+                                <SrcButton className={`flex justify-center items-center ${ showInfo ? 'active4' : '' }`}></SrcButton>
 
                                 <ProductName className='text-4xl my-4'>Product Name</ProductName>
 

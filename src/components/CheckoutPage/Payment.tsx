@@ -24,8 +24,8 @@ export default function Payment(payOption: any) {
                 productDetails[0]
                     ? [
                         {
-                            label: `${productDetails.productName} x ${productDetails.productQuantity}`,
-                            price: (productDetails.productCost * productDetails.productQuantity).toFixed(2),
+                            label: `${productName} x ${productQuantity}`,
+                            price: (productCost * productQuantity).toFixed(2),
                             type: 'LINE_ITEM',
                         },
                     ]
